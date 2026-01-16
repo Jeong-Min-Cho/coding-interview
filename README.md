@@ -1,12 +1,23 @@
-# Coding Interview Boilerplate
+# Blog Posts Application
 
-A full-stack TypeScript boilerplate ready for coding interviews.
+A full-stack TypeScript blog posts application built for coding interviews.
+
+## Features
+
+- View all blog posts on the home page
+- Create new posts with title, content, and author
+- Like/unlike posts (tracked per browser session)
+- Client-side routing with separate pages for viewing and creating posts
+- Input validation on both frontend and backend
+- Optimistic UI updates for likes
 
 ## Tech Stack
 
 | Layer | Technology | Version |
 |-------|------------|---------|
 | **Frontend** | React + Vite | React 19, Vite 7 |
+| **Styling** | Tailwind CSS | 4.x |
+| **Routing** | React Router | 7.x |
 | **Backend** | Express | Express 5 |
 | **Language** | TypeScript | 5.9 |
 | **Testing** | Vitest | 4.x |
@@ -18,26 +29,35 @@ A full-stack TypeScript boilerplate ready for coding interviews.
 ## Project Structure
 
 ```
-├── frontend/                # React + Vite + TypeScript
+├── frontend/                    # React + Vite + TypeScript
 │   ├── src/
-│   │   ├── App.tsx          # Main component
-│   │   ├── App.test.tsx     # Example test
-│   │   ├── main.tsx         # Entry point
-│   │   └── test/
-│   │       └── setup.ts     # Test setup
-│   ├── vite.config.ts       # Vite config with API proxy
-│   └── vitest.config.ts     # Test config
+│   │   ├── components/          # Reusable UI components
+│   │   │   ├── PostCard.tsx     # Individual post display
+│   │   │   ├── PostForm.tsx     # Create post form
+│   │   │   └── PostList.tsx     # List of posts
+│   │   ├── pages/               # Route pages
+│   │   │   ├── HomePage.tsx     # Post list page
+│   │   │   └── CreatePostPage.tsx # Create post page
+│   │   ├── utils/
+│   │   │   └── browserId.ts     # Browser session ID utility
+│   │   ├── api.ts               # API client functions
+│   │   ├── types.ts             # TypeScript types
+│   │   ├── App.tsx              # Main app with routing
+│   │   └── main.tsx             # Entry point
+│   ├── tailwind.config.js       # Tailwind CSS config
+│   └── vite.config.ts           # Vite config with API proxy
 │
-├── backend/                 # Express + TypeScript
+├── backend/                     # Express + TypeScript
 │   ├── src/
-│   │   ├── app.ts           # Express app (exported for testing)
-│   │   ├── index.ts         # Server entry point
-│   │   └── test/
-│   │       └── app.test.ts  # Example API tests
-│   ├── tsconfig.json
-│   └── vitest.config.ts     # Test config
+│   │   ├── routes/
+│   │   │   └── posts.ts         # Posts API routes
+│   │   ├── app.ts               # Express app setup
+│   │   ├── index.ts             # Server entry point
+│   │   ├── store.ts             # In-memory data store
+│   │   └── types.ts             # TypeScript types
+│   └── vitest.config.ts         # Test config
 │
-└── package.json             # Root scripts
+└── CLAUDE.md                    # AI assistant instructions
 ```
 
 ## Getting Started
@@ -91,7 +111,29 @@ cd backend && npm run test:run  # Single run
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/health` | Health check |
-| GET | `/api/hello` | Example endpoint |
+| GET | `/api/posts` | Get all posts |
+| POST | `/api/posts` | Create a new post |
+| PATCH | `/api/posts/:id/like` | Toggle like on a post |
+
+### Request/Response Examples
+
+**Create Post:**
+```json
+POST /api/posts
+{
+  "title": "My Post Title",
+  "content": "Post content here...",
+  "author": "John Doe"
+}
+```
+
+**Toggle Like:**
+```json
+PATCH /api/posts/1/like
+{
+  "browserId": "unique-browser-id"
+}
+```
 
 ## Interview Requirements
 
@@ -108,16 +150,19 @@ cd backend && npm run test:run  # Single run
 - Commit the project to a Git repository
 - Share the repository with the interviewer
 
-### What This Boilerplate Provides
+### What This Application Includes
 
 - [x] TypeScript configured for both frontend and backend
-- [x] React frontend with Vite (fast dev server)
+- [x] React frontend with Vite and Tailwind CSS
+- [x] Client-side routing with React Router
 - [x] Express backend with hot reload (nodemon)
+- [x] RESTful API for blog posts (CRUD operations)
+- [x] Input sanitization and validation
+- [x] Global error handling
 - [x] API proxy configured (frontend → backend)
 - [x] Testing framework ready (Vitest)
-- [x] Example tests for both frontend and backend
+- [x] Tests for both frontend and backend
 - [x] ESLint configured for both frontend and backend
-- [x] Git initialized
 
 ## Tech Stack Rationale
 
