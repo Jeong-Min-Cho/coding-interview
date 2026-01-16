@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import postsRouter from './routes/posts';
 
 const app = express();
 
@@ -16,5 +17,8 @@ app.get('/api/health', (req: Request, res: Response) => {
 app.get('/api/hello', (req: Request, res: Response) => {
   res.json({ message: 'Hello from Express!' });
 });
+
+// Posts API
+app.use('/api/posts', postsRouter);
 
 export default app;
