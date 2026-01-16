@@ -19,8 +19,16 @@ router.post('/', (req: Request, res: Response) => {
     res.status(400).json({ error: 'Title is required' });
     return;
   }
+  if (title.trim().length > 100) {
+    res.status(400).json({ error: 'Title must be 100 characters or less' });
+    return;
+  }
   if (!content || typeof content !== 'string' || content.trim() === '') {
     res.status(400).json({ error: 'Content is required' });
+    return;
+  }
+  if (content.trim().length > 500) {
+    res.status(400).json({ error: 'Content must be 500 characters or less' });
     return;
   }
   if (!author || typeof author !== 'string' || author.trim() === '') {
@@ -37,16 +45,23 @@ router.post('/', (req: Request, res: Response) => {
   res.status(201).json(post);
 });
 
-// PATCH /api/posts/:id/like - Like a post
+// PATCH /api/posts/:id/like - Toggle like on a post
 router.patch('/:id/like', (req: Request, res: Response) => {
-  const id = parseInt(req.params.id, 10);
+  const idParam = req.params.id;
+  const id = parseInt(Array.isArray(idParam) ? idParam[0] : idParam, 10);
 
   if (isNaN(id)) {
     res.status(400).json({ error: 'Invalid post ID' });
     return;
   }
 
-  const post = store.like(id);
+  const { browserId } = req.body as { browserId?: string };
+  if (!browserId || typeof browserId !== 'string' || browserId.trim() === '') {
+    res.status(400).json({ error: 'browserId is required' });
+    return;
+  }
+
+  const post = store.like(id, browserId.trim());
 
   if (!post) {
     res.status(404).json({ error: 'Post not found' });

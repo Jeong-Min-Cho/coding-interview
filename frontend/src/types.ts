@@ -4,7 +4,7 @@ export interface Post {
   content: string;
   author: string;
   createdAt: string;
-  likedBy: string[]; // Array of browser UUIDs who liked this post
+  likedBy: string[];
 }
 
 export interface CreatePostInput {

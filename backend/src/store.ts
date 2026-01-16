@@ -19,16 +19,23 @@ export const store = {
       content: input.content,
       author: input.author,
       createdAt: new Date().toISOString(),
-      likes: 0,
+      likedBy: [],
     };
     posts.push(post);
     return post;
   },
 
-  like: (id: number): Post | undefined => {
+  like: (id: number, browserId: string): Post | undefined => {
     const post = posts.find((p) => p.id === id);
     if (post) {
-      post.likes += 1;
+      const index = post.likedBy.indexOf(browserId);
+      if (index === -1) {
+        // Not liked yet, add the browserId
+        post.likedBy.push(browserId);
+      } else {
+        // Already liked, remove it (unlike)
+        post.likedBy.splice(index, 1);
+      }
     }
     return post;
   },
