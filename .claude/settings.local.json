@@ -7,7 +7,20 @@
       "Bash(npx tsc:*)",
       "Bash(npm run build:*)",
       "Bash(npm run test:run:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm audit:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(gh pr list:*)",
+      "Bash(npm outdated:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(curl:*)",
+      "Bash(netstat:*)",
+      "Bash(node dist/index.js:*)",
+      "Bash(tasklist:*)",
+      "Bash(/c/Program Files/GitHub CLI/gh.exe pr create:*)",
+      "Bash(PORT=4050 npm run dev:*)",
+      "Bash(where:*)"
     ]
   }
 }
